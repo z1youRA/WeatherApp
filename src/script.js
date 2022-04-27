@@ -36,10 +36,12 @@ async function getCord(cityName) {
   }
 }
 
-function getWeather(cityName) {
-    getCord(cityName)
-      .then((cord) => getWeatherByLoc(cord))
-      .then(data => console.log(data));
+function displayWeather(cityName) {
+  getCord(cityName)
+    .then((cord) => getWeatherByLoc(cord))
+    .then((data) => (content.textContent = data.weather[0].id));
 }
 
-searchBtn.addEventListener("click", () => {getWeather(searchBar.value)});
+searchBtn.addEventListener("click", () => {
+  displayWeather(searchBar.value);
+});
