@@ -1,6 +1,9 @@
 const APIKey = "8c0d3e0fe3192dd6674a3ed5b0898dd1";
+const content = document.querySelector(".content");
+const searchBar = document.querySelector(".header .city");
+const searchBtn = document.querySelector(".header button");
 
-async function getWeather(loc) {
+async function getWeatherByLoc(loc) {
   try {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${loc.lat}&lon=${loc.lon}&appid=${APIKey}`,
@@ -33,6 +36,10 @@ async function getCord(cityName) {
   }
 }
 
-getCord("chongqing")
-  .then((cord) => getWeather(cord))
-  .then((data) => console.log(data));
+function getWeather(cityName) {
+    getCord(cityName)
+      .then((cord) => getWeatherByLoc(cord))
+      .then(data => console.log(data));
+}
+
+searchBtn.addEventListener("click", () => {getWeather(searchBar.value)});

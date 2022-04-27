@@ -1,0 +1,24 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    grid-template-rows: 4.5rem;
+}
+
+.header {
+    text-align: center;
+    display: flex;
+    background-color: lightblue;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.header form {
+    margin-left: auto;
+
+} 
