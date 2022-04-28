@@ -43,8 +43,10 @@ function displayWeather(cityName) {
     .then(displayData);
 }
 
-function kelvinConverter (kelvin) {
-  return tempFlag ? Math.round(kelvin - 273.15) : Math.round((kelvin - 273.15) * 9 / 5 + 32);
+function kelvinConverter(kelvin) {
+  return tempFlag
+    ? Math.round(kelvin - 273.15)
+    : Math.round(((kelvin - 273.15) * 9) / 5 + 32);
 }
 
 function displayCurrentWeather(data) {
@@ -53,7 +55,7 @@ function displayCurrentWeather(data) {
   const currentTemp = kelvinConverter(data.current.temp);
   const currentWeather = data.current.weather[0].main;
 
-  currentTempBlock.textContent = currentTemp; 
+  currentTempBlock.textContent = currentTemp;
   currentWeatherBlock.textContent = currentWeather;
 }
 
