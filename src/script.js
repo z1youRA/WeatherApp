@@ -2,11 +2,12 @@ const APIKey = "8c0d3e0fe3192dd6674a3ed5b0898dd1";
 const content = document.querySelector(".content");
 const searchBar = document.querySelector(".header .city");
 const searchBtn = document.querySelector(".header button");
+const tempFlag = 1; // Celsius: 1, Fahrenheit: 0;
 
 async function getWeatherByLoc(loc) {
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${loc.lat}&lon=${loc.lon}&appid=${APIKey}`,
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${loc.lat}&lon=${loc.lon}&exclude={minutely}&appid=${APIKey}`,
       {
         mode: "cors",
       }
@@ -39,9 +40,33 @@ async function getCord(cityName) {
 function displayWeather(cityName) {
   getCord(cityName)
     .then((cord) => getWeatherByLoc(cord))
-    .then((data) => (content.textContent = data.weather[0].id));
+    .then(displayData);
+}
+
+function kelvinConverter (kelvin) {
+  return tempFlag ? Math.round(kelvin - 273.15) : Math.round((kelvin - 273.15) * 9 / 5 + 32);
+}
+
+function displayCurrentWeather(data) {
+  const currentTempBlock = content.querySelector("#current-temperature");
+  const currentWeatherBlock = content.querySelector("#current-weather");
+  const currentTemp = kelvinConverter(data.current.temp);
+  const currentWeather = data.current.weather[0].main;
+
+  currentTempBlock.textContent = currentTemp; 
+  currentWeatherBlock.textContent = currentWeather;
+}
+
+function displayData(data) {
+  console.log(data);
+  const currentWeatherDescription = data.current.weather[0].description;
+  const weatherDailyForecasts = data.daily;
+
+  displayCurrentWeather(data);
 }
 
 searchBtn.addEventListener("click", () => {
   displayWeather(searchBar.value);
 });
+
+displayWeather("Wuhan");
