@@ -54,17 +54,33 @@ function displayCurrentWeather(data) {
   const currentWeatherBlock = content.querySelector("#current-weather");
   const currentTemp = kelvinConverter(data.current.temp);
   const currentWeather = data.current.weather[0].main;
+  const currentSign = content.querySelector("#current-temperature-sign");
 
   currentTempBlock.textContent = currentTemp;
   currentWeatherBlock.textContent = currentWeather;
+  currentSign.textContent = tempFlag ? "°C" : "°F";
+}
+
+function displayDailyForecasts(data) {
+  console.log(data);
+  const dailyBlocks = document.querySelectorAll(".daily-forecast");
+  dailyBlocks.forEach((dailyBlock, index) => {
+    const icon = dailyBlock.querySelector(".weather-icon");
+    const date = new Date(data.daily[index].dt * 1000);
+    const dateBlock = dailyBlock.querySelector(".date");
+    const weatherBlock = dailyBlock.querySelector(".daily-weather");
+    const tempBlock = dailyBlock.querySelector(".daily-temp");
+    if(index >= 2)
+      dateBlock.textContent = (date.getMonth()+1) + "-" +date.getDate();
+    icon.src = `http://openweathermap.org/img/wn/${data.daily[index].weather[0].icon}@2x.png`
+    weatherBlock.textContent = data.daily[index].weather[0].main;
+    tempBlock.textContent = kelvinConverter(data.daily[index].temp.day);
+  });
 }
 
 function displayData(data) {
-  console.log(data);
-  const currentWeatherDescription = data.current.weather[0].description;
-  const weatherDailyForecasts = data.daily;
-
   displayCurrentWeather(data);
+  displayDailyForecasts(data);
 }
 
 searchBtn.addEventListener("click", () => {

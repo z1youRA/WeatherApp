@@ -20,5 +20,48 @@ body {
 
 .header form {
     margin-left: auto;
-
 } 
+
+.current-block {
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.current-block #current-temperature {
+    font-size: 10rem;
+}
+
+#current-temperature-sign {
+    height: 11.5rem; /* Make the height the same with temperature for the sake of alignment*/ 
+}
+
+#current-temp-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+    padding: 5rem 0;
+}
+
+.daily-forecasts-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.daily-forecast {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.daily-temp {
+    margin-left: auto;
+    margin-right: 2rem;
+}
+
+.daily-forecast {
+    border: 1px solid;
+}
